@@ -8,6 +8,7 @@ jobs:
       - run:
           name: Install MPI
           command: |
+            apt update
             apt install -y openmpi-bin
       - run:
           name: Day1
