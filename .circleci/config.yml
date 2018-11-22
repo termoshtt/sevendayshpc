@@ -11,12 +11,14 @@ jobs:
             apt update
             apt install -y libopenmpi-dev libclang-dev clang libffi-dev texinfo
       - run:
+          name: Build All
+          command: |
+            cargo build --release
+      - run:
           name: Day1
           command: |
-            cd day1
-            cargo build --release
-            mpirun --allow-run-as-root -np 4 ./target/release/hello
-            mpirun --allow-run-as-root -np 4 ./target/release/rank
+            mpirun --allow-run-as-root -np 4 ./target/release/day1_hello
+            mpirun --allow-run-as-root -np 4 ./target/release/day1_rank
 
 workflows:
   version: 2
