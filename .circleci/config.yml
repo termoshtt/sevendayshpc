@@ -9,7 +9,7 @@ jobs:
           name: Install MPI
           command: |
             apt update
-            apt install -y libopenmpi-dev
+            apt install -y libopenmpi-dev libclang-dev
       - run:
           name: Day1
           command: |
