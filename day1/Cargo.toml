@@ -2,7 +2,6 @@
 name = "days1"
 version = "0.1.0"
 authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
-edition = "2018"
 
 [dependencies]
 mpi = "0.5"
