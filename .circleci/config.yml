@@ -17,3 +17,9 @@ jobs:
             cargo build --release
             mpirun --allow-run-as-root -np 4 ./target/release/hello
             mpirun --allow-run-as-root -np 4 ./target/release/rank
+
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - test
