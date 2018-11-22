@@ -5,11 +5,16 @@ authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 
 [dependencies]
 mpi = "0.5"
+sfmt = "0.4"
+rand = "0.5"
 
 [[bin]]
 name = "day1_hello"
 path = "day1/hello.rs"
-
 [[bin]]
 name = "day1_rank"
 path = "day1/rank.rs"
+
+[[bin]]
+name = "day3_calc_pi"
+path = "day3/calc_pi.rs"
