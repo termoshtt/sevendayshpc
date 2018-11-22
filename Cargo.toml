@@ -1,5 +1,5 @@
 [package]
-name = "days1"
+name = "sevendays-hpc"
 version = "0.1.0"
 authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 
@@ -7,9 +7,9 @@ authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 mpi = "0.5"
 
 [[bin]]
-name = "hello"
-path = "src/hello.rs"
+name = "day1_hello"
+path = "day1/hello.rs"
 
 [[bin]]
-name = "rank"
-path = "src/rank.rs"
+name = "day1_rank"
+path = "day1/rank.rs"
