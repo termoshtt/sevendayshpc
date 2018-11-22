@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: rust
+    steps:
+      - checkout
+      - run:
+          name: Install MPI
+          command: |
+            apt install -y openmpi-bin
+      - run:
+          name: Day1
+          command: |
+            cd day1
+            cargo build --release
+            mpirun --allow-run-as-root -np 4 ./target/release/hello
+            mpirun --allow-run-as-root -np 4 ./target/release/rank
