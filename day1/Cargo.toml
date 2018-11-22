@@ -1,0 +1,15 @@
+[package]
+name = "days1"
+version = "0.1.0"
+authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
+
+[dependencies]
+mpi = "0.5"
+
+[[bin]]
+name = "hello"
+path = "src/hello.rs"
+
+[[bin]]
+name = "rank"
+path = "src/rank.rs"
