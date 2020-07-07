@@ -1,0 +1,306 @@
+libtoolize: putting auxiliary files in `.'.
+libtoolize: copying file `./ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIR, `m4'.
+libtoolize: copying file `m4/libtool.m4'
+libtoolize: copying file `m4/ltoptions.m4'
+libtoolize: copying file `m4/ltsugar.m4'
+libtoolize: copying file `m4/ltversion.m4'
+libtoolize: copying file `m4/lt~obsolete.m4'
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking target system type... x86_64-unknown-linux-gnu
+continue configure in default builddir "./x86_64-unknown-linux-gnu"
+....exec /bin/sh ../configure "--srcdir=.." "--enable-builddir=x86_64-unknown-linux-gnu" "linux
+gnu"
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking target system type... x86_64-unknown-linux-gnu
+checking for gsed... sed
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for style of include used by make... GNU
+checking dependency style of gcc... gcc3
+checking for g++... g++
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+checking dependency style of g++... gcc3
+checking dependency style of gcc... gcc3
+checking whether gcc and cc understand -c and -o together... yes
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking whether the shell understands some XSI constructs... yes
+checking whether the shell understands "+="... yes
+checking how to convert x86_64-unknown-linux-gnu file names to x86_64-unknown-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-unknown-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... no
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking how to run the C++ preprocessor... g++ -E
+checking for ld used by g++... /usr/bin/ld -m elf_x86_64
+checking if the linker (/usr/bin/ld -m elf_x86_64) is GNU ld... yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking for g++ option to produce PIC... -fPIC -DPIC
+checking if g++ PIC flag -fPIC -DPIC works... yes
+checking if g++ static flag -static works... no
+checking if g++ supports -c -o file.o... yes
+checking if g++ supports -c -o file.o... (cached) yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking dynamic linker characteristics... (cached) GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking size of size_t... 8
+checking for C compiler vendor... gnu
+checking whether C compiler accepts -fstrict-aliasing... yes
+checking whether C compiler accepts -ffast-math... yes
+checking for gcc architecture flag... 
+checking for x86 cpuid 0 output... 14:756e6547:6c65746e:49656e69
+checking for x86 cpuid 1 output... 406f1:2010800:fffa3203:f8bfbff
+checking whether C compiler accepts -march=core2... yes
+checking for gcc architecture flag... -march=core2
+checking whether C compiler accepts -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2... yes
+checking CFLAGS for maximum warnings... -Wall
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking sys/mman.h usability... yes
+checking sys/mman.h presence... yes
+checking for sys/mman.h... yes
+checking for mmap... yes
+checking for mkostemp... yes
+checking for sys/mman.h... (cached) yes
+checking for mmap... (cached) yes
+checking whether read-only mmap of a plain file works... yes
+checking whether mmap from /dev/zero works... yes
+checking for MAP_ANON(YMOUS)... yes
+checking whether mmap with MAP_ANON(YMOUS) works... yes
+checking for ANSI C header files... (cached) yes
+checking for memcpy... yes
+checking for size_t... yes
+checking for working alloca.h... yes
+checking for alloca... yes
+checking size of double... 8
+checking size of long double... 16
+checking whether byte ordering is bigendian... no
+checking assembler .cfi pseudo-op support... yes
+checking assembler supports pc related relocs... yes
+checking assembler .ascii pseudo-op support... yes
+checking assembler .string pseudo-op support... yes
+checking for _ prefix in compiled symbols... no
+checking toolchain supports unwind section type... yes
+checking whether .eh_frame section should be read-only... yes
+checking for __attribute__((visibility("hidden")))... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating include/Makefile
+config.status: creating include/ffi.h
+config.status: creating Makefile
+config.status: creating testsuite/Makefile
+config.status: creating man/Makefile
+config.status: creating libffi.pc
+config.status: creating fficonfig.h
+config.status: linking ../src/x86/ffitarget.h to include/ffitarget.h
+config.status: executing buildir commands
+config.status: create top_srcdir/Makefile guessed from local Makefile
+config.status: build in x86_64-unknown-linux-gnu (HOST=x86_64-unknown-linux-gnu)
+config.status: executing depfiles commands
+config.status: executing libtool commands
+config.status: executing include commands
+config.status: executing src commands
+MAKE x86_64-unknown-linux-gnu : 1 * install
+make[1]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu' に入ります
+Making install in include
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/include' に入ります
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/include' に入ります
+make[3]: `install-exec-am' に対して行うべき事はありません.
+ /usr/bin/mkdir -p '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/libffi-3.2.1/include'
+ /usr/bin/install -c -m 644 ffi.h ffitarget.h '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/libffi-3.2.1/include'
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/include' から出ます
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/include' から出ます
+Making install in testsuite
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/testsuite' に入ります
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/testsuite' に入ります
+make[3]: `install-exec-am' に対して行うべき事はありません.
+make[3]: `install-data-am' に対して行うべき事はありません.
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/testsuite' から出ます
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/testsuite' から出ます
+Making install in man
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/man' に入ります
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/man' に入ります
+make[3]: `install-exec-am' に対して行うべき事はありません.
+ /usr/bin/mkdir -p '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/share/man/man3'
+ /usr/bin/install -c -m 644 ../../man/ffi.3 ../../man/ffi_call.3 ../../man/ffi_prep_cif.3 ../../man/ffi_prep_cif_var.3 '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/share/man/man3'
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/man' から出ます
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu/man' から出ます
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu' に入ります
+restore=: && backupdir=".am$$" && \
+am__cwd=`pwd` && CDPATH="${ZSH_VERSION+.}:" && cd .. && \
+rm -rf $backupdir && mkdir $backupdir && \
+if (/bin/sh /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/missing makeinfo  --version) >/dev/null 2>&1; then \
+  for f in ../doc/libffi.info ../doc/libffi.info-[0-9] ../doc/libffi.info-[0-9][0-9] ../doc/libffi.i[0-9] ../doc/libffi.i[0-9][0-9]; do \
+    if test -f $f; then mv $f $backupdir; restore=mv; else :; fi; \
+  done; \
+else :; fi && \
+cd "$am__cwd"; \
+if /bin/sh /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/missing makeinfo    -I doc -I ../doc \
+ -o ../doc/libffi.info ../doc/libffi.texi; \
+then \
+  rc=0; \
+  CDPATH="${ZSH_VERSION+.}:" && cd ..; \
+else \
+  rc=$?; \
+  CDPATH="${ZSH_VERSION+.}:" && cd .. && \
+  $restore $backupdir/* `echo "./../doc/libffi.info" | sed 's|[^/]*$||'`; \
+fi; \
+rm -rf $backupdir; exit $rc
+depbase=`echo src/prep_cif.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -MT src/prep_cif.lo -MD -MP -MF $depbase.Tpo -c -o src/prep_cif.lo ../src/prep_cif.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/prep_cif.lo -MD -MP -MF src/.deps/prep_cif.Tpo -c ../src/prep_cif.c  -fPIC -DPIC -o src/.libs/prep_cif.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/prep_cif.lo -MD -MP -MF src/.deps/prep_cif.Tpo -c ../src/prep_cif.c  -fPIC -DPIC -o src/prep_cif.o >/dev/null 2>&1
+depbase=`echo src/types.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -MT src/types.lo -MD -MP -MF $depbase.Tpo -c -o src/types.lo ../src/types.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/types.lo -MD -MP -MF src/.deps/types.Tpo -c ../src/types.c  -fPIC -DPIC -o src/.libs/types.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/types.lo -MD -MP -MF src/.deps/types.Tpo -c ../src/types.c  -fPIC -DPIC -o src/types.o >/dev/null 2>&1
+depbase=`echo src/raw_api.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -MT src/raw_api.lo -MD -MP -MF $depbase.Tpo -c -o src/raw_api.lo ../src/raw_api.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/raw_api.lo -MD -MP -MF src/.deps/raw_api.Tpo -c ../src/raw_api.c  -fPIC -DPIC -o src/.libs/raw_api.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/raw_api.lo -MD -MP -MF src/.deps/raw_api.Tpo -c ../src/raw_api.c  -fPIC -DPIC -o src/raw_api.o >/dev/null 2>&1
+depbase=`echo src/java_raw_api.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -MT src/java_raw_api.lo -MD -MP -MF $depbase.Tpo -c -o src/java_raw_api.lo ../src/java_raw_api.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/java_raw_api.lo -MD -MP -MF src/.deps/java_raw_api.Tpo -c ../src/java_raw_api.c  -fPIC -DPIC -o src/.libs/java_raw_api.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/java_raw_api.lo -MD -MP -MF src/.deps/java_raw_api.Tpo -c ../src/java_raw_api.c  -fPIC -DPIC -o src/java_raw_api.o >/dev/null 2>&1
+depbase=`echo src/closures.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -MT src/closures.lo -MD -MP -MF $depbase.Tpo -c -o src/closures.lo ../src/closures.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/closures.lo -MD -MP -MF src/.deps/closures.Tpo -c ../src/closures.c  -fPIC -DPIC -o src/.libs/closures.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/closures.lo -MD -MP -MF src/.deps/closures.Tpo -c ../src/closures.c  -fPIC -DPIC -o src/closures.o >/dev/null 2>&1
+depbase=`echo src/x86/ffi64.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -MT src/x86/ffi64.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/ffi64.lo ../src/x86/ffi64.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffi64.lo -MD -MP -MF src/x86/.deps/ffi64.Tpo -c ../src/x86/ffi64.c  -fPIC -DPIC -o src/x86/.libs/ffi64.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffi64.lo -MD -MP -MF src/x86/.deps/ffi64.Tpo -c ../src/x86/ffi64.c  -fPIC -DPIC -o src/x86/ffi64.o >/dev/null 2>&1
+depbase=`echo src/x86/unix64.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool    --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src  -I. -I../include -Iinclude -I../src  -MT src/x86/unix64.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/unix64.lo ../src/x86/unix64.S &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -I. -I../include -Iinclude -I../src -MT src/x86/unix64.lo -MD -MP -MF src/x86/.deps/unix64.Tpo -c ../src/x86/unix64.S  -fPIC -DPIC -o src/x86/.libs/unix64.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -I. -I../include -Iinclude -I../src -MT src/x86/unix64.lo -MD -MP -MF src/x86/.deps/unix64.Tpo -c ../src/x86/unix64.S  -fPIC -DPIC -o src/x86/unix64.o >/dev/null 2>&1
+depbase=`echo src/x86/ffi.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src   -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -MT src/x86/ffi.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/ffi.lo ../src/x86/ffi.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffi.lo -MD -MP -MF src/x86/.deps/ffi.Tpo -c ../src/x86/ffi.c  -fPIC -DPIC -o src/x86/.libs/ffi.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2 -Wall -fexceptions -MT src/x86/ffi.lo -MD -MP -MF src/x86/.deps/ffi.Tpo -c ../src/x86/ffi.c  -fPIC -DPIC -o src/x86/ffi.o >/dev/null 2>&1
+depbase=`echo src/x86/sysv.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/sh ./libtool    --mode=compile gcc -DHAVE_CONFIG_H -I. -I..  -I. -I../include -Iinclude -I../src  -I. -I../include -Iinclude -I../src  -MT src/x86/sysv.lo -MD -MP -MF $depbase.Tpo -c -o src/x86/sysv.lo ../src/x86/sysv.S &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -I. -I../include -Iinclude -I../src -MT src/x86/sysv.lo -MD -MP -MF src/x86/.deps/sysv.Tpo -c ../src/x86/sysv.S  -fPIC -DPIC -o src/x86/.libs/sysv.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I. -I../include -Iinclude -I../src -I. -I../include -Iinclude -I../src -MT src/x86/sysv.lo -MD -MP -MF src/x86/.deps/sysv.Tpo -c ../src/x86/sysv.S  -fPIC -DPIC -o src/x86/sysv.o >/dev/null 2>&1
+/bin/sh ./libtool  --tag=CC   --mode=link gcc  -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions   -o libffi_convenience.la  src/prep_cif.lo src/types.lo src/raw_api.lo src/java_raw_api.lo src/closures.lo                                src/x86/ffi64.lo src/x86/unix64.lo src/x86/ffi.lo src/x86/sysv.lo          
+libtool: link: ar cru .libs/libffi_convenience.a src/.libs/prep_cif.o src/.libs/types.o src/.libs/raw_api.o src/.libs/java_raw_api.o src/.libs/closures.o src/x86/.libs/ffi64.o src/x86/.libs/unix64.o src/x86/.libs/ffi.o src/x86/.libs/sysv.o 
+libtool: link: ranlib .libs/libffi_convenience.a
+libtool: link: ( cd ".libs" && rm -f "libffi_convenience.la" && ln -s "../libffi_convenience.la" "libffi_convenience.la" )
+/bin/sh ./libtool  --tag=CC   --mode=link gcc  -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=core2  -Wall -fexceptions -no-undefined -version-info `grep -v '^#' ../libtool-version`    -o libffi.la -rpath /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64 src/prep_cif.lo src/types.lo src/raw_api.lo src/java_raw_api.lo src/closures.lo                                src/x86/ffi64.lo src/x86/unix64.lo src/x86/ffi.lo src/x86/sysv.lo          
+libtool: link: gcc -shared  -fPIC -DPIC  src/.libs/prep_cif.o src/.libs/types.o src/.libs/raw_api.o src/.libs/java_raw_api.o src/.libs/closures.o src/x86/.libs/ffi64.o src/x86/.libs/unix64.o src/x86/.libs/ffi.o src/x86/.libs/sysv.o    -O3 -march=core2   -Wl,-soname -Wl,libffi.so.6 -o .libs/libffi.so.6.0.4
+libtool: link: (cd ".libs" && rm -f "libffi.so.6" && ln -s "libffi.so.6.0.4" "libffi.so.6")
+libtool: link: (cd ".libs" && rm -f "libffi.so" && ln -s "libffi.so.6.0.4" "libffi.so")
+libtool: link: ar cru .libs/libffi.a  src/prep_cif.o src/types.o src/raw_api.o src/java_raw_api.o src/closures.o src/x86/ffi64.o src/x86/unix64.o src/x86/ffi.o src/x86/sysv.o
+libtool: link: ranlib .libs/libffi.a
+libtool: link: ( cd ".libs" && rm -f "libffi.la" && ln -s "../libffi.la" "libffi.la" )
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu' に入ります
+ /usr/bin/mkdir -p '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c   libffi.la '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64'
+libtool: install: /usr/bin/install -c .libs/libffi.so.6.0.4 /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64/libffi.so.6.0.4
+libtool: install: (cd /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64 && { ln -s -f libffi.so.6.0.4 libffi.so.6 || { rm -f libffi.so.6 && ln -s libffi.so.6.0.4 libffi.so.6; }; })
+libtool: install: (cd /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64 && { ln -s -f libffi.so.6.0.4 libffi.so || { rm -f libffi.so && ln -s libffi.so.6.0.4 libffi.so; }; })
+libtool: install: /usr/bin/install -c .libs/libffi.lai /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64/libffi.la
+libtool: install: /usr/bin/install -c .libs/libffi.a /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64/libffi.a
+libtool: install: chmod 644 /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64/libffi.a
+libtool: install: ranlib /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64/libffi.a
+libtool: finish: PATH="/home/doraneko94/.cargo/bin:/opt/rh/llvm-toolset-7/root/usr/bin:/opt/rh/llvm-toolset-7/root/usr/sbin:/home/doraneko94/.cargo/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/doraneko94/.local/bin:/home/doraneko94/bin:/usr/lib64/openmpi/bin/:/usr/lib64/openmpi/bin/:/sbin" ldconfig -n /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/../lib64
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+ /usr/bin/mkdir -p '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/share/info'
+ /usr/bin/install -c -m 644 ../doc/libffi.info '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/share/info'
+ install-info --info-dir='/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/share/info' '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/share/info/libffi.info'
+ /usr/bin/mkdir -p '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/pkgconfig'
+ /usr/bin/install -c -m 644 libffi.pc '/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib/pkgconfig'
+make[3]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu' から出ます
+make[2]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu' から出ます
+make[1]: ディレクトリ `/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-build/x86_64-unknown-linux-gnu' から出ます
+cargo:rustc-link-lib=static=ffi
+cargo:rustc-link-search=/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib
+cargo:rustc-link-search=/home/doraneko94/sevendayshpc.rs/day5/target/release/build/libffi-sys-f55c5de7ea796e1f/out/libffi-root/lib64

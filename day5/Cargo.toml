@@ -1,0 +1,27 @@
+[package]
+name = "days5"
+version = "0.1.0"
+authors = ["doraneko94 <shuntaro94@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+mpi = "0.5"
+mpi-util = { path = "../mpi-util" }
+
+[[bin]]
+name = "gs"
+path = "src/gs.rs"
+
+[[bin]]
+name = "gather2d"
+path = "src/gather2d.rs"
+
+[[bin]]
+name = "sendrecv"
+path = "src/sendrecv.rs"
+
+[[bin]]
+name = "gs_mpi"
+path = "src/gs_mpi.rs"

@@ -1,0 +1,1 @@
+cargo:rustc-cfg=extern_statics_are_unsafe

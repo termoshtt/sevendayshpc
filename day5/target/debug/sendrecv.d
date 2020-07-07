@@ -1,0 +1,1 @@
+/home/doraneko94/sevendayshpc.rs/day5/target/debug/sendrecv: /home/doraneko94/sevendayshpc.rs/day5/src/sendrecv.rs /home/doraneko94/sevendayshpc.rs/mpi-util/src/lib.rs /home/doraneko94/sevendayshpc.rs/mpi-util/src/stdout.rs

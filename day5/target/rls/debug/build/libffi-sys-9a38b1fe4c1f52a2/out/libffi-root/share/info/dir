@@ -1,0 +1,19 @@
+これが、(dir)Top と呼ばれる Info 階層の最上位ノードの含められている
+.../info/dir ファイルです。
+あなたが、始めて Info を起動したのなら、まずこのノードを見てください。
+
+File: dir,	Node: Top	これが、INFO ツリーの頂点です
+
+  ここ(the Directory ノード)では、主だった主題を扱っています。
+  キー "q" で終了し、"?" で Info のコマンドをリストアップし、"d" でここに
+  戻ります。
+  "h" で導入文字を入力します。たとえば、
+  "mEmacs<Return>" で Emacs マニュアルを訪れる、などです。
+
+  Emacs の内ならば、メニュー項目や相互参照を、マウスのボタン 2 をクリックして
+  選択できます。
+
+* Menu:
+
+Development
+* libffi: (libffi).             Portable foreign-function interface library.
