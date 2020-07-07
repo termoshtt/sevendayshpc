@@ -1,3 +1,0 @@
-warning: argument unused during compilation: '-L/usr/lib64/openmpi/lib' [-Wunused-command-line-argument], err: false
-error: toolchain 'nightly-x86_64-unknown-linux-gnu' is not installed
-Custom { kind: Other, error: "Internal rustfmt error" }

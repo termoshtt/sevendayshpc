@@ -1,1 +1,0 @@
-/home/doraneko94/sevendayshpc.rs/day5/target/debug/barrier: /home/doraneko94/sevendayshpc.rs/day5/src/barrier.rs /home/doraneko94/sevendayshpc.rs/mpi-util/src/lib.rs /home/doraneko94/sevendayshpc.rs/mpi-util/src/stdout.rs

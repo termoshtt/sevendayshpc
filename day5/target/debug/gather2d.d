@@ -1,1 +1,0 @@
-/home/doraneko94/sevendayshpc.rs/day5/target/debug/gather2d: /home/doraneko94/sevendayshpc.rs/day5/src/gather2d.rs /home/doraneko94/sevendayshpc.rs/mpi-util/src/lib.rs /home/doraneko94/sevendayshpc.rs/mpi-util/src/stdout.rs

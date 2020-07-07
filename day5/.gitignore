@@ -1,6 +1,6 @@
 a.out
 
-target/
+
 **/*.rs.bk
 Cargo.lock
 
