@@ -7,7 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-mpi = "0.5"
+mpi = { git = "https://github.com/rsmpi/rsmpi", rev = "f9aec8b8d82" }
 
 [[bin]]
 name = "thermal"

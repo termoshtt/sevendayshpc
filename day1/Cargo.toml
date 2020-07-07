@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 
 [dependencies]
-mpi = "0.5"
+mpi = { git = "https://github.com/rsmpi/rsmpi", rev = "f9aec8b8d82" }
 
 [[bin]]
 name = "hello"
