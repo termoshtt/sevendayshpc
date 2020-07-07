@@ -1,9 +1,11 @@
-
+a.out
+b.out
 
 target/
 **/*.rs.bk
-
+Cargo.lock
 
 rusty-tags.*
 
 *.dat
+*.png
