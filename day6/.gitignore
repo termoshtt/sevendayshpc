@@ -3,3 +3,15 @@ gs.out
 gs_omp1.out
 gs_omp2.out
 .vimrc.local
+
+target/
+**/*.rs.bk
+Cargo.lock
+
+rusty-tags.*
+
+*.dat
+*.png
+
+*.data
+*.org
