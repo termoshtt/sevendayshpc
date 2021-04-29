@@ -1,2 +1,14 @@
 a.out
-*.s
+.vimrc.local
+
+target/
+**/*.rs.bk
+Cargo.lock
+
+rusty-tags.*
+
+*.dat
+*.png
+
+*.data
+*.org

@@ -1,0 +1,30 @@
+[package]
+name = "days7"
+version = "0.1.0"
+authors = ["doraneko94 <shuntaro94@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.3"
+
+[[bin]]
+name = "print"
+path = "src/print.rs"
+
+[[bin]]
+name = "add"
+path = "src/add.rs"
+
+[[bin]]
+name = "mul"
+path = "src/mul.rs"
+
+[[bin]]
+name = "load"
+path = "src/load.rs"
+
+[[bin]]
+name = "simdcheck"
+path = "src/simdcheck.rs"
