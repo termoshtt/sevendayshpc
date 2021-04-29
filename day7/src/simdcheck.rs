@@ -47,8 +47,8 @@ unsafe fn check(vc: &[f64; N], ans: &[f64; N], t: &str) {
 mod func;
 use func::func;
 
-mod funcsimd;
-use funcsimd::func_simd;
+mod func_simd;
+use func_simd::func_simd;
 
 fn main() {
     let ud = Uniform::new(0.0, 1.0);
