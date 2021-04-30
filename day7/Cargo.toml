@@ -28,3 +28,11 @@ path = "src/load.rs"
 [[bin]]
 name = "simdcheck"
 path = "src/simdcheck.rs"
+
+[[bin]]
+name = "mag"
+path = "src/magnetic/mag.rs"
+
+[[bin]]
+name = "mag_simd"
+path = "src/magnetic/mag_simd.rs"
