@@ -11,7 +11,7 @@ const IM_YZX: i32 = 64 * 3 + 16 * 0 + 4 * 2 + 1 * 1;
 const IM_ZXY: i32 = 64 * 3 + 16 * 1 + 4 * 0 + 1 * 2;
 
 #[derive(Clone, Copy)]
-#[repr(C)]
+#[repr(align(32))]
 struct V {
     pub x: f64,
     pub y: f64,

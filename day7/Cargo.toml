@@ -36,3 +36,7 @@ path = "src/magnetic/mag.rs"
 [[bin]]
 name = "mag_simd"
 path = "src/magnetic/mag_simd.rs"
+
+[[bin]]
+name = "mag_soa"
+path = "src/magnetic/mag_soa.rs"

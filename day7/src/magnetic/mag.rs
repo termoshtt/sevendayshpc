@@ -104,5 +104,5 @@ fn main() {
             println!("{} {}", t, energy(&v));
         } 
     }
-    // dump(&r);
+    dump(&r);
 }
