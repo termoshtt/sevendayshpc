@@ -1,0 +1,27 @@
+name: doc
+
+on:
+  push:
+    branches:
+      - master
+  pull_request: {}
+
+jobs:
+  day1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day1/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 4 ./day1/target/release/hello
+        mpirun --allow-run-as-root -np 4 ./day1/target/release/rank
