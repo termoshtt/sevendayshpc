@@ -1,0 +1,155 @@
+name: mpirun
+
+on:
+  push:
+    branches:
+      - master
+  pull_request: {}
+
+jobs:
+  day1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day1/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./target/release/hello
+        mpirun --allow-run-as-root -np 2 ./target/release/rank
+
+  day3:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day3/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./target/release/calc_pi
+        mpirun --allow-run-as-root -np 2 ./target/release/calc_pi_mpi
+        mpirun --allow-run-as-root -np 2 ./target/release/calc_pi_reduce
+
+  day4:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day4/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./target/release/thermal
+        mpirun --allow-run-as-root -np 2 ./target/release/thermal_mpi
+        mpirun --allow-run-as-root -np 2 ./target/release/gather
+
+  day5:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day5/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./target/release/gs
+        mpirun --allow-run-as-root -np 2 ./target/release/gather2d
+        mpirun --allow-run-as-root -np 2 ./target/release/sendrecv
+        mpirun --allow-run-as-root -np 2 ./target/release/gs_mpi
+
+  day6:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day6/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./target/release/gs
+        mpirun --allow-run-as-root -np 2 ./target/release/gs_omp
+
+  day7:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day7/Cargo.toml
+    - name: Run
+      run: |
+        ./target/release/print
+        ./target/release/add
+        ./target/release/mul
+        ./target/release/load
+        ./target/release/simdcheck
+        ./target/release/mag
+        ./target/release/mag_simd
+        ./target/release/mag_soa
+
+  check-format:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: -- --check
