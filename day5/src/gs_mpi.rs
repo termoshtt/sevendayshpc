@@ -1,9 +1,9 @@
-use std::fs::File;
-use std::io::{BufWriter, Write};
 use mpi::point_to_point as p2p;
 use mpi::topology::*;
 use mpi::traits::*;
 use mpi_util::*;
+use std::fs::File;
+use std::io::{BufWriter, Write};
 
 const L: usize = 128;
 const TOTAL_STEP: usize = 20_000;
@@ -28,7 +28,8 @@ struct MPIinfo {
 }
 
 impl MPIinfo {
-    pub fn new(world: &SystemCommunicator) -> Self { // void setup_info(MPIinfo &mi);
+    pub fn new(world: &SystemCommunicator) -> Self {
+        // void setup_info(MPIinfo &mi);
         let rank = world.rank();
         let procs = world.size();
         let mut d2 = vec![0; 2];
@@ -39,7 +40,16 @@ impl MPIinfo {
         let local_grid_y = rank / gx;
         let local_size_x = L / gx as usize;
         let local_size_y = L / gy as usize;
-        Self { rank, procs, gx, gy, local_grid_x, local_grid_y, local_size_x, local_size_y, }
+        Self {
+            rank,
+            procs,
+            gx,
+            gy,
+            local_grid_x,
+            local_grid_y,
+            local_size_x,
+            local_size_y,
+        }
     }
 
     // 自分から見て(dx,dy)だけずれたプロセスのrankを返す
@@ -55,7 +65,9 @@ impl MPIinfo {
         let sy = self.local_size_y * self.local_grid_y as usize;
         let ex = sx + self.local_size_x;
         let ey = sy + self.local_size_y;
-        if x < sx || x >= ex || y < sy || y >= ey  { return false; }
+        if x < sx || x >= ex || y < sy || y >= ey {
+            return false;
+        }
         true
     }
 
@@ -74,7 +86,9 @@ impl MPIinfo {
         let end = L / 2 + d;
         for i in start..end {
             for j in start..end {
-                if !self.is_inside(i, j) { continue; }
+                if !self.is_inside(i, j) {
+                    continue;
+                }
                 let k = self.g2i(i, j);
                 u[k] = 0.7;
             }
@@ -84,13 +98,15 @@ impl MPIinfo {
         let end = L / 2 + d;
         for i in start..end {
             for j in start..end {
-                if !self.is_inside(i, j) { continue; }
+                if !self.is_inside(i, j) {
+                    continue;
+                }
                 let k = self.g2i(i, j);
                 v[k] = 0.9;
             }
         }
     }
-    
+
     fn laplacian(&self, ix: usize, iy: usize, s: &VD) -> f64 {
         let mut ts = 0.0;
         let l = self.local_size_x + 2;
@@ -105,8 +121,8 @@ impl MPIinfo {
     fn calc(&self, u: &mut VD, v: &mut VD, u2: &mut VD, v2: &mut VD) {
         let lx = self.local_size_x + 2;
         let ly = self.local_size_y + 2;
-        for iy in 1..ly-1 {
-            for ix in 1..lx-1 {
+        for iy in 1..ly - 1 {
+            for ix in 1..lx - 1 {
                 let mut du;
                 let mut dv;
                 let i = ix + iy * lx;
@@ -177,7 +193,12 @@ impl MPIinfo {
             let index = lx + (i + 1) * (lx + 2);
             sendbuf[i] = local_data[index];
         }
-        p2p::send_receive_into(&sendbuf[..], &right_process, &mut recvbuf[..], &left_process);
+        p2p::send_receive_into(
+            &sendbuf[..],
+            &right_process,
+            &mut recvbuf[..],
+            &left_process,
+        );
         for i in 0..ly {
             let index = (i + 1) * (lx + 2);
             local_data[index] = recvbuf[i];
@@ -187,7 +208,12 @@ impl MPIinfo {
             let index = 1 + (i + 1) * (lx + 2);
             sendbuf[i] = local_data[index];
         }
-        p2p::send_receive_into(&sendbuf[..], &left_process, &mut recvbuf[..], &right_process);
+        p2p::send_receive_into(
+            &sendbuf[..],
+            &left_process,
+            &mut recvbuf[..],
+            &right_process,
+        );
         for i in 0..ly {
             let index = lx + 1 + (i + 1) * (lx + 2);
             local_data[index] = recvbuf[i];
@@ -204,22 +230,22 @@ impl MPIinfo {
         let up_process = world.process_at_rank(up);
         let down_process = world.process_at_rank(down);
         // 上に投げて下から受け取る
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + 1 * (lx + 2);
             sendbuf[i] = local_data[index];
         }
         p2p::send_receive_into(&sendbuf[..], &up_process, &mut recvbuf[..], &down_process);
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + (ly + 1) * (lx + 2);
             local_data[index] = recvbuf[i];
         }
         // 下に投げて上から受け取る
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + ly * (lx + 2);
             sendbuf[i] = local_data[index];
         }
         p2p::send_receive_into(&sendbuf[..], &down_process, &mut recvbuf[..], &up_process);
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + 0 * (lx + 2);
             local_data[index] = recvbuf[i];
         }
@@ -245,8 +271,8 @@ fn save_as_dat(u: &VD, index: &mut usize) -> Result<(), Box<dyn std::error::Erro
     let filename = format!("conf{:03}.dat", index);
     println!("{}", filename);
     let mut f = BufWriter::new(File::create(&filename)?);
-    for i in 0..L*L {
-        if i == L*L - 1 {
+    for i in 0..L * L {
+        if i == L * L - 1 {
             f.write_all(format!("{:.5}", u[i]).as_bytes())?;
         } else {
             f.write_all(format!("{:.5},", u[i]).as_bytes())?;
@@ -262,7 +288,7 @@ fn main() {
     let universe = mpi::initialize().unwrap();
     let world = universe.world();
     let mi = MPIinfo::new(&world);
-    let v_size =  (mi.local_size_x + 2) * (mi.local_size_y + 2);
+    let v_size = (mi.local_size_x + 2) * (mi.local_size_y + 2);
     let mut u = vec![0.0; v_size];
     let mut v = vec![0.0; v_size];
     let mut u2 = vec![0.0; v_size];
@@ -276,6 +302,8 @@ fn main() {
             mi.sendrecv(&mut u, &mut v, &world);
             mi.calc(&mut u, &mut v, &mut u2, &mut v2);
         }
-        if i % INTERVAL == 0 { mi.save_as_dat_mpi(&u, &mut index, &world); }
+        if i % INTERVAL == 0 {
+            mi.save_as_dat_mpi(&u, &mut index, &world);
+        }
     }
 }

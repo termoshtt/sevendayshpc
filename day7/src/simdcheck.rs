@@ -35,7 +35,9 @@ unsafe fn check(vc: &[f64; N], ans: &[f64; N], t: &str) {
                 }
             }
         }
-        if !valid { break; }
+        if !valid {
+            break;
+        }
     }
     if valid {
         println!("{} is OK", t);
@@ -53,25 +55,38 @@ use func_simd::func_simd;
 fn main() {
     let ud = Uniform::new(0.0, 1.0);
     let mut rng = rand::thread_rng();
-    let mut va = A { data: [std::f64::NAN; N] }.data;
-    let mut vb = A { data: [std::f64::NAN; N] }.data;
-    let _ = va.iter_mut()
-                .map(|e| {
-                    *e = ud.sample(&mut rng);
-                })
-                .collect::<()>();
-    let _ = vb.iter_mut()
-                .map(|e| {
-                    *e = ud.sample(&mut rng);
-                })
-                .collect::<()>();
+    let mut va = A {
+        data: [std::f64::NAN; N],
+    }
+    .data;
+    let mut vb = A {
+        data: [std::f64::NAN; N],
+    }
+    .data;
+    let _ = va
+        .iter_mut()
+        .map(|e| {
+            *e = ud.sample(&mut rng);
+        })
+        .collect::<()>();
+    let _ = vb
+        .iter_mut()
+        .map(|e| {
+            *e = ud.sample(&mut rng);
+        })
+        .collect::<()>();
     let mut vc = A { data: [0.0; N] }.data;
-    let mut ans = A { data: [std::f64::NAN; N] }.data;
-    let _ = ans.iter_mut()
-                .zip(va.iter().zip(vb.iter()))
-                .map(|(ansi, (&ai, &bi))| {
-                    *ansi = ai + bi;
-                }).collect::<()>();
+    let mut ans = A {
+        data: [std::f64::NAN; N],
+    }
+    .data;
+    let _ = ans
+        .iter_mut()
+        .zip(va.iter().zip(vb.iter()))
+        .map(|(ansi, (&ai, &bi))| {
+            *ansi = ai + bi;
+        })
+        .collect::<()>();
     unsafe {
         func(&va, &vb, &mut vc);
         check(&vc, &ans, "scalar");

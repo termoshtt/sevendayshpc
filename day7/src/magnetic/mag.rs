@@ -102,7 +102,7 @@ fn main() {
         t += DT;
         if i % 1000 == 0 {
             println!("{} {}", t, energy(&v));
-        } 
+        }
     }
     dump(&r);
 }

@@ -20,7 +20,9 @@ unsafe fn print256d(x: __m256d) {
 }
 
 fn main() {
-    let a = A { data: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0] };
+    let a = A {
+        data: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0],
+    };
 
     unsafe {
         let p: *const f64 = &a.data[0];

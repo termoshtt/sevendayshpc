@@ -52,8 +52,8 @@ fn laplacian(ix: usize, iy: usize, s: &VD) -> f64 {
 }
 
 fn calc(u: &mut VD, v: &mut VD, u2: &mut VD, v2: &mut VD) {
-    for iy in 1..L-1 {
-        for ix in 1..L-1 {
+    for iy in 1..L - 1 {
+        for ix in 1..L - 1 {
             let mut du;
             let mut dv;
             let i = ix + iy * L;

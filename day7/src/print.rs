@@ -18,5 +18,5 @@ fn main() {
     unsafe {
         let v1 = _mm256_set_pd(3.0, 2.0, 1.0, 0.0);
         print256d(v1);
-    }    
+    }
 }
