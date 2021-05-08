@@ -49,5 +49,5 @@ jobs:
     - name: Run
       run: |
         mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_pi
-        mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_mpi
-        mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_reduce
+        mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_pi_mpi
+        mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_pi_reduce
