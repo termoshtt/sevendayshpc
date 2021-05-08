@@ -51,3 +51,93 @@ jobs:
         mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_pi
         mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_pi_mpi
         mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_pi_reduce
+
+  day4:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day4/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./day4/target/release/thermal
+        mpirun --allow-run-as-root -np 2 ./day4/target/release/thermal_mpi
+        mpirun --allow-run-as-root -np 2 ./day4/target/release/gather
+
+  day5:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day5/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./day5/target/release/gs
+        mpirun --allow-run-as-root -np 2 ./day5/target/release/gather2d
+        mpirun --allow-run-as-root -np 2 ./day5/target/release/sendrecv
+        mpirun --allow-run-as-root -np 2 ./day5/target/release/gs_mpi
+
+  day6:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day6/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./day6/target/release/gs
+        mpirun --allow-run-as-root -np 2 ./day6/target/release/gs_omp
+
+  day7:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day7/Cargo.toml
+    - name: Run
+      run: |
+        ./day7/target/release/print
+        ./day7/target/release/add
+        ./day7/target/release/mul
+        ./day7/target/release/load
+        ./day7/target/release/simdcheck
+        ./day7/target/release/mag
+        ./day7/target/release/mag_simd
+        ./day7/target/release/mag_soa
