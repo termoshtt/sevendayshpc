@@ -1,2 +1,12 @@
-~$*.pptx
+# C++
+a.out
+
+# Rust
+target/
+Cargo.lock
+rusty-tags.*
+
+# Editor, OS
 .DS_Store
+*.bk
+~$*.pptx
