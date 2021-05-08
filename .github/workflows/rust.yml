@@ -15,6 +15,9 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
     - uses: actions-rs/cargo@v1
       with:
         command: build
@@ -23,6 +26,5 @@ jobs:
           --manifest-path=day1/Cargo.toml
     - name: Run
       run: |
-        cat /proc/cpuinfo
         mpirun --allow-run-as-root -np 2 ./day1/target/release/hello
         mpirun --allow-run-as-root -np 2 ./day1/target/release/rank
