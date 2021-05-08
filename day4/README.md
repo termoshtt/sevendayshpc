@@ -1,21 +1,24 @@
 # Day 4 : 領域分割による非自明並列
 
+<!--- abstract --->
+これまでは並列化として、自明並列を扱ってきた。自明並列はほとんど通信を必要とせず、並列化効率が高いため計算資源を最も有効に使える計算方法である。しかし、せっかくスパコンを使うのであるから、本格的に通信を伴う非自明並列に挑戦してみよう。
+<!--- end --->
+
 ## 非自明並列
 
-Day 3では自明並列を扱ってきた。自明並列は別名「馬鹿パラ」と呼ばれ、馬鹿にされる傾向にあるのだが、並列化効率が高いため、「計算資源は」最も有効に使える計算方法である。さて、「スパコンはノードを束ねたもの」であり、「ノードとは本質的にはPCと同じもの」であることは既に述べた。しかし「普通のPCを多数束ねたらスパコンになるか」というとそうではなく、スパコンとして動作をするためには「ネットワーク」と「信頼性」が重要なのであった。実は、馬鹿パラは「ネットワーク」と「信頼性」のどちらも必要としない。
+「スパコンはノードを束ねたもの」であり、「ノードとは本質的にはPCと同じもの」であることは既に述べた。しかし「普通のPCを多数束ねたらスパコンになるか」というとそうではなく、スパコンとして動作をするためには「ネットワーク」と「信頼性」が重要である。これまで扱ってきた自明並列(通称「馬鹿パラ」)は、「ネットワーク」と「信頼性」のどちらも必要としない。
 
-![fig/bakapara.png](fig/bakapara.png)
+![馬鹿パラの特徴](fig/bakapara.png)
 
-パラメタ並列の場合、一番最初に「どのパラメタをどのプロセスが担当すべきか」をばらまくのに通信したあとは通信不要である(計算が終わったら結果をファイルに吐いてしまえばよい)。したがって、各ノードが高速なネットワークで接続されている必要はなく、たとえばイーサネットなどでつないでしまって全く問題ない。
-また、大規模な非自明並列計算を実行するには高い信頼性が求められるが、馬鹿パラは信頼性も要求しない。計算途中でノードが壊れてしまっても、そのノードでしていた計算だけやり直せばよいだけのことである。
-つまり馬鹿パラとは最も計算資源は有効に使えるものの、「ネットワーク」と「信頼性」という、スパコンの重要な特性を全く使わない計算方法なのであった。なので、主に馬鹿パラで計算する場合には、「普通のPCを多数束ねたPCクラスタ」で全く構わない。
+パラメタ並列の場合、一番最初に「どのパラメタをどのプロセスが担当すべきか」をばらまくのに通信したあとは通信不要である(計算が終わったら結果をファイルに吐いてしまえばよい)。したがって、各ノードが高速なネットワークで接続されている必要はなく、たとえばイーサネットなどでつないでしまって全く問題ない。また、大規模な非自明並列計算を実行するには高い信頼性が求められるが、馬鹿パラは信頼性も要求しない。計算途中でノードが壊れてしまっても、そのノードでしていた計算だけやり直せばよいだけのことである。
+つまり馬鹿パラとは最も計算資源は有効に使えるものの、「ネットワーク」と「信頼性」という、スパコンの重要な二大特性を全く使わない計算方法なのであった。なので、主に馬鹿パラで計算する場合には「普通のPCを多数束ねたPCクラスタ」で全く構わない。
 
 さて、馬鹿パラであろうとなんであろうと、スパコンを活用していることにはかわりないし、それで良い科学的成果が出るのならそれで良いのだが、せっかくスパコンを使うのなら、もう少し「スパコンらしさ」を活用してみたい。というわけで、「ネットワーク」と「信頼性」をどちらも要求する **非自明並列 (non-trivial parallel)** に挑戦してみよう。
 
 馬鹿パラではほとんど通信が発生しなかったのに対して、非自明並列は頻繁に通信が必要とする。
 科学計算はなんらかの繰り返し計算(例えば時間発展)をすることが多いが、意味のある並列計算を行う場合、毎ステップ通信が必要となる。この時、「計算に関わる全ノードと毎回通信が発生する」タイプと、「論理的に距離が近いノードのみと通信が必要となる」タイプにわかれる。
 
-![fig/nontrivial.png](fig/nontrivial.png)
+![非自明並列の通信パターン](fig/nontrivial.png)
 
 毎回全ノードと計算が必要になるタイプは、典型的には高速フーリエ変換が必要となる場合である。
 例えば、「円周率を一兆桁計算する」といった計算において、多倍長計算が必要となり、その多倍長計算の実行にフーリエ変換が使われる。乱流の計算にもフーリエ変換が使われる。以上、地球シミュレータで大規模な乱流シミュレーションが行われたが、これは地球シミュレータの強力なネットワークがなければ実現が難しかった。こういう全ノード通信は、バタフライ型のアルゴリズムで実行されることが多いが、ここでは深入りしない。興味のある人は「並列FFT」などでググってみて欲しい。
@@ -46,20 +49,18 @@ $$
 ちなみに一般の時刻における解はフーリエ変換で求められる。理工系の大学生であれば二年生くらいまでで習っているはずなので
 各自復習されたい。
 
-さて、この偏微分方程式を数値的に解くために空間を$L$分割して差分化しよう。
-時間については一次のオイラー法、空間については中央差分を取ると、時間刻みを$h$、
-$n$ステップ目に$i$番目のサイトの温度を$T_i^{n}$として、
+さて、この偏微分方程式を数値的に解くために空間を$L$分割して差分化しよう。時間については一次のオイラー法、空間については中央差分を取る。時間刻みを$h$、空間刻みを$1$、$n$ステップ目における$i$番目のサイトの温度を$T_i^{n}$とすると、同じ場所の次のステップの温度$T_i^{n+1}$は、
 
 $$
-T_i^{n+1} = T_i^{n} + \frac{T_{i+1}^n - 2 T_{i}^n T_{i-1}^n}{2h}
+T_i^{n+1} = T_i^{n} + h(T_{i+1}^n - 2 T_{i}^n + T_{i-1}^n)
 $$
 
-で得られる。例えば時間ステップ$n$の温度を`std::vector<double> lattice`で表すと、上記の式をそのままコードに落とすと
+と表現される。例えば時間ステップ$n$の温度を`std::vector<double> lattice`で表すと、上記の式をそのままコードに落とすと
 
 ```cpp
   std::copy(lattice.begin(), lattice.end(), orig.begin());
   for (int i = 1; i < L - 1; i++) {
-    lattice[i] += (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]) * 0.5 * h;
+    lattice[i] += h * (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]);
   }
 ```
 
@@ -70,11 +71,11 @@ void onestep(std::vector<double> &lattice, const double h) {
   static std::vector<double> orig(L);
   std::copy(lattice.begin(), lattice.end(), orig.begin());
   for (int i = 1; i < L - 1; i++) {
-    lattice[i] += (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]) * 0.5 * h;
+    lattice[i] += h * (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]);
   }
   // For Periodic Boundary
-  lattice[0] += (orig[L - 1] - 2.0 * lattice[0]  + orig[1]) * 0.5 * h;
-  lattice[L - 1] += (orig[L - 2] - 2.0 * lattice[L - 1] + orig[0]) * 0.5 * h;
+  lattice[0] += h * (orig[L - 1] - 2.0 * lattice[0]  + orig[1]);
+  lattice[L - 1] += h * (orig[L - 2] - 2.0 * lattice[L - 1] + orig[0]);
 }
 ```
 
@@ -94,11 +95,76 @@ void dump(std::vector<double> &data) {
 }
 ```
 
-あとは適当な条件を与えれば時間発展させることができる。ここでは、「一様加熱」と「温度固定」の二通りを試してみよう。コードはこちら。
+あとは適当な条件を与えれば時間発展させることができる。ここでは、「一様加熱」と「温度固定」の二通りを試してみよう。以下のコードを`thermal.cpp`という名前で保存、実行してみよう。
 
-[thermal.cpp](thermal.cpp)
+```cpp
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <vector>
 
-![fig/thermal.png](fig/thermal.png)
+const int L = 128;
+const int STEP = 100000;
+const int DUMP = 1000;
+
+void onestep(std::vector<double> &lattice, const double h) {
+  static std::vector<double> orig(L);
+  std::copy(lattice.begin(), lattice.end(), orig.begin());
+  for (int i = 1; i < L - 1; i++) {
+    lattice[i] += h * (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]);
+  }
+  // For Periodic Boundary
+  lattice[0] += h * (orig[L - 1] - 2.0 * lattice[0] + orig[1]);
+  lattice[L - 1] += h * (orig[L - 2] - 2.0 * lattice[L - 1] + orig[0]);
+}
+
+void dump(std::vector<double> &data) {
+  static int index = 0;
+  char filename[256];
+  sprintf(filename, "data%03d.dat", index);
+  std::cout << filename << std::endl;
+  std::ofstream ofs(filename);
+  for (int i = 0; i < data.size(); i++) {
+    ofs << i << " " << data[i] << std::endl;
+  }
+  index++;
+}
+
+void fixed_temperature(std::vector<double> &lattice) {
+  const double h = 0.01;
+  const double Q = 1.0;
+  for (int i = 0; i < STEP; i++) {
+    onestep(lattice, h);
+    lattice[L / 4] = Q;
+    lattice[3 * L / 4] = -Q;
+    if ((i % DUMP) == 0) dump(lattice);
+  }
+}
+
+void uniform_heating(std::vector<double> &lattice) {
+  const double h = 0.2;
+  const double Q = 1.0;
+  for (int i = 0; i < STEP; i++) {
+    onestep(lattice, h);
+    for (auto &s : lattice) {
+      s += Q * h;
+    }
+    lattice[0] = 0.0;
+    lattice[L - 1] = 0.0;
+    if ((i % DUMP) == 0) dump(lattice);
+  }
+}
+
+int main() {
+  std::vector<double> lattice(L, 0.0);
+  //uniform_heating(lattice);
+  fixed_temperature(lattice);
+}
+```
+
+実行結果は以下のようになる。
+
+![加熱シミュレーションの結果](fig/thermal.png)
 
 一様加熱というのは、系のすべての場所を一様に加熱することである。
 単位時間あたりの加熱量を`Q`として、
@@ -145,7 +211,7 @@ $$
 
 計算結果はこんな感じになる。
 
-![uniform.png](uniform.png)
+![一様加熱シミュレーションの時間発展](fig/uniform.png)
 
 時間がたつにつれて温度が上がっていき、定常状態に近づいていくのがわかる。
 
@@ -168,9 +234,9 @@ void fixed_temperature(std::vector<double> &lattice) {
 
 計算結果はこんな感じ。
 
-![fixed.png](fixed.png)
+![固定境界シミュレーションの時間発展](fig/fixed.png)
 
-時間がたつにつれて、定常状態である直線になる。ちなみに、定常状態で温度勾配が直線になる現象は[フーリエの法則](https://ja.wikipedia.org/wiki/%E7%86%B1%E4%BC%9D%E5%B0%8E#%E3%83%95%E3%83%BC%E3%83%AA%E3%82%A8%E3%81%AE%E6%B3%95%E5%89%87)という名前がついている。あのフーリエ変換のフーリエさんである。もともとフーリエは熱伝導の問題を解くためにフーリエ級数を編み出したのであった。
+時間がたつにつれて、定常状態である直線になる。ちなみに、定常状態で温度勾配が直線になる現象はフーリエの法則(Fourier's law)という名前がついている。あのフーリエ変換のフーリエさんである。もともとフーリエは熱伝導の問題を解くためにフーリエ級数を編み出したのであった。
 
 ## 一次元拡散方程式 (並列版)
 
@@ -179,9 +245,9 @@ void fixed_temperature(std::vector<double> &lattice) {
 要するに空間をプロセスの数で分割して、各プロセスは自分の担当する領域を、必要に応じて隣のプロセスから情報をもらいながら更新すればよい。
 ただし、隣の領域の情報を参照する必要があるので、その部分を「のりしろ」として保持し、そこを通信することになる。
 
-並列化で考えなければいけないことの一つに「ファイル出力をどうするか」というものがある。これまでプロセスが一つしかなかったので、そいつがファイルを吐けばよかったのだが、プロセス並列をしていると、別々のプロセスがそれぞれ系の状態を分割して保持している。どうにかしてこれをファイルに吐かないといけない。並列計算をする前に、まずは領域分割をして、各プロセスが別々に保持している状態をどうやってファイルに吐くか考えてみよう。いろいろ方法はあるだろうが、とりあえず「全プロセス勝手に吐くく」「一つのファイルに追記」「一度まとめてから吐く」の三通りの方法が考えられる。
+並列化で考えなければいけないことの一つに「ファイル出力をどうするか」というものがある。これまでプロセスが一つしかなかったので、そいつがファイルを吐けばよかったのだが、プロセス並列をしていると、別々のプロセスがそれぞれ系の状態を分割して保持している。どうにかしてこれをファイルに吐かないといけない。並列計算をする前に、まずは領域分割をして、各プロセスが別々に保持している状態をどうやってファイルに吐くか考えてみよう。いろいろ方法はあるだろうが、とりあえず「全プロセス勝手に吐く」「一つのファイルに追記」「一度まとめてから吐く」の三通りの方法が考えられる。
 
-![fig/parafile.png](fig/parafile.png)
+![並列プログラムにおけるファイルの吐き方](fig/parafile.png)
 
 1. 「全プロセス勝手に吐く」これは各プロセスが毎ステップ勝手にファイルを吐く方法。例えばtステップ目にi番目のプロセスが`file_t_i.dat`みたいな形式で吐く。コーディングは楽だが、毎ステップ、プロセスの数だけ出力されるので大量のファイルができる。また、解析のためには各プロセスが吐いたファイルをまとめないといけないのでファイル管理が面倒。
 2. 「一つのファイルに追記」毎ステップ、ファイルをひとつだけ作成し、プロセスがシリアルに次々と追記していく方法。出力されるファイルはシリアル実行の時と同じなので解析は楽だが、「追記」をするためにプロセスが順番待ちをする。数千プロセスでやったら死ぬほど遅かった。
@@ -190,9 +256,7 @@ void fixed_temperature(std::vector<double> &lattice) {
 とりあえずメモリに問題なければ「3. 一度まとめてから吐く」が楽なので、今回はこれを採用しよう。メモリが厳しかったり、数万プロセスの計算とかする時にはなにか工夫してくださいまし。
 
 さて、「一度まとめてから吐く」ためには、「各プロセスにバラバラにあるデータを、どこかのプロセスに一括して持ってくる」必要があるのだが、MPIには
-そのものずばり`MPI_Gather`という関数がある。使い方は以下のサンプルを見たほうが早いと思う。
-
-[gather.cpp](gather.cpp)
+そのものずばり`MPI_Gather`という関数がある。使い方はサンプルを見たほうが早い。以下を`gather.cpp`という名前で保存、実行しよう。
 
 ```cpp
 #include <cstdio>
@@ -265,7 +329,7 @@ void dump_mpi(std::vector<double> &local, int rank, int procs) {
 ファイル出力の目処がついたところで、並列化を考えよう。差分方程式なので、両端にそれぞれ1サイト分の「のりしろ」を用意して、
 そこだけ隣と通信すれば良い。
 
-![fig/margin.png](fig/margin.png)
+![通信の「のりしろ」](fig/margin.png)
 
 計算をする「前」に、両脇の領域を管轄するプロセスから端の情報を「のりしろ」にコピーして、その後は普通に計算すれば良い。
 端の情報を「のりしろ」にコピーするのには一対一通信を用いる。
@@ -290,7 +354,7 @@ void onestep(std::vector<double> &lattice, double h, int rank, int procs) {
 
   //あとはシリアル版と同じ
   for (int i = 1; i < size - 1; i++) {
-    lattice[i] += (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]) * 0.5 * h;
+    lattice[i] += h * (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]);
   }
 }
 ```
@@ -322,7 +386,7 @@ void uniform_heating(std::vector<double> &lattice, int rank, int procs) {
 }
 ```
 
-シリアル版とほぼ同じだが、「両端の温度を固定」する時に、左端はランク0番が、右端は`procs-1`版が担当しているので、そこだけif文が入る。
+シリアル版とほぼ同じだが、「両端の温度を固定」する時に、左端はランク0番が、右端は`procs-1`番が担当しているので、そこだけif文が入る。
 あとは`dump`を`dump_mpi`に変えるだけ。
 
 次に、温度の固定条件。
@@ -345,11 +409,104 @@ void fixed_temperature(std::vector<double> &lattice, int rank, int procs) {
 }
 ```
 
-これも一様加熱と同じで、「温度を固定している場所がどのプロセスが担当するどの場所か」を調べる必要があるが、それを考えるのはさほど難しくないだろう。
+これも一様加熱と同じで、「温度を固定している場所がどのプロセスが担当するどの場所か」を調べる必要があるが、それを考えるのはさほど難しくないだろう。そんなわけで完成した並列コードを`thermal_mpi.cpp`という名前で保存しよう。
 
-そんなわけで完成した並列コードがこちら。
+```cpp
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <mpi.h>
+#include <vector>
 
-[thermal_mpi.cpp](thermal_mpi.cpp)
+const int L = 128;
+const int STEP = 100000;
+const int DUMP = 1000;
+
+void dump(std::vector<double> &data) {
+  static int index = 0;
+  char filename[256];
+  sprintf(filename, "data%03d.dat", index);
+  std::cout << filename << std::endl;
+  std::ofstream ofs(filename);
+  for (unsigned int i = 0; i < data.size(); i++) {
+    ofs << i << " " << data[i] << std::endl;
+  }
+  index++;
+}
+
+void dump_mpi(std::vector<double> &local, int rank, int procs) {
+  static std::vector<double> global(L);
+  MPI_Gather(&(local[1]), L / procs, MPI_DOUBLE, global.data(), L / procs, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  if (rank == 0) {
+    dump(global);
+  }
+}
+
+void onestep(std::vector<double> &lattice, double h, int rank, int procs) {
+  const int size = lattice.size();
+  static std::vector<double> orig(size);
+  std::copy(lattice.begin(), lattice.end(), orig.begin());
+  // ここから通信のためのコード
+  const int left = (rank - 1 + procs) % procs; // 左のランク番号
+  const int right = (rank + 1) % procs;        // 右のランク番号
+  MPI_Status st;
+  // 右端を右に送って、左端を左から受け取る
+  MPI_Sendrecv(&(lattice[size - 2]), 1, MPI_DOUBLE, right, 0, &(orig[0]), 1, MPI_DOUBLE, left, 0, MPI_COMM_WORLD, &st);
+  // 左端を左に送って、右端を右から受け取る
+  MPI_Sendrecv(&(lattice[1]), 1, MPI_DOUBLE, left, 0, &(orig[size - 1]), 1, MPI_DOUBLE, right, 0, MPI_COMM_WORLD, &st);
+
+  //あとはシリアル版と同じ
+  for (int i = 1; i < size - 1; i++) {
+    lattice[i] += h * (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]);
+  }
+}
+
+void uniform_heating(std::vector<double> &lattice, int rank, int procs) {
+  const double h = 0.2;
+  const double Q = 1.0;
+  for (int i = 0; i < STEP; i++) {
+    onestep(lattice, h, rank, procs);
+    for (auto &s : lattice) {
+      s += Q * h;
+    }
+    if (rank == 0) {
+      lattice[1] = 0.0;
+    }
+    if (rank == procs - 1) {
+      lattice[lattice.size() - 2] = 0.0;
+    }
+    if ((i % DUMP) == 0) dump_mpi(lattice, rank, procs);
+  }
+}
+
+void fixed_temperature(std::vector<double> &lattice, int rank, int procs) {
+  const double h = 0.01;
+  const double Q = 1.0;
+  const int s = L / procs;
+  for (int i = 0; i < STEP; i++) {
+    onestep(lattice, h, rank, procs);
+    if (rank == (L / 4 / s)) {
+      lattice[L / 4 - rank * s + 1] = Q;
+    }
+    if (rank == (3 * L / 4 / s)) {
+      lattice[3 * L / 4 - rank * s + 1] = -Q;
+    }
+    if ((i % DUMP) == 0) dump_mpi(lattice, rank, procs);
+  }
+}
+
+int main(int argc, char **argv) {
+  MPI_Init(&argc, &argv);
+  int rank, procs;
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &procs);
+  const int mysize = L / procs + 2;
+  std::vector<double> local(mysize);
+  uniform_heating(local, rank, procs);
+  //fixed_temperature(local, rank, procs);
+  MPI_Finalize();
+}
+```
 
 せっかく並列化したので、高速化したかどうか調べてみよう。一様加熱の計算をさせてみる。
 
@@ -414,7 +571,7 @@ mpirun -np 8 --oversubscribe ./a.out  3.28s user 2.89s system 311% cpu 1.980 tot
 受信側は、自分のタイミングでそのバッファから必要な場所にデータをコピーする。送信側は相手の返事を待たずに`MPI_Send`を終了して
 次に処理が進んでしまうため、先程の例でもデッドロックしない。
 
-![fig/r_and_e.png](fig/r_and_e.png)
+![RendezvouzプロトコルとEagerプロトコル](fig/r_and_e.png)
 
 EagerプロトコルとRendezvousプロトコルは、送受信のサイズによって切り替わり、その切替サイズはシステムによって異なる。
 `MPI_Send`と`MPI_Recv`を使ったデッドロックの可能性のあるコードは、 **あるサイトでは正常に動作するのに、別のサイトではデッドロック**したり、

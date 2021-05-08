@@ -1,7 +1,13 @@
 
 # Day 5 :二次元反応拡散方程式
 
-Day 4で一次元拡散方程式を領域分割により並列化した。後はこの応用で相互作用距離が短いモデルはなんでも領域分割できるのだが、二次元、三次元だと、一次元よりちょっと面倒くさい。後、熱伝導方程式は、「最終的になにかに落ち着く」方程式なので、シミュレーションしててあまりおもしろいものではない。そこで、二次元で、差分法で簡単に解けて、かつ結果がそこそこ面白い題材として反応拡散方程式(reaction-diffusion system)を取り上げる。反応拡散方程式とは、拡散方程式に力学系がくっついたような系で、様々なパターンを作る。例えば「reaction-diffusion system」でイメージ検索してみて欲しい。生物の模様なんかがこの方程式系で説明されたりする。
+<!--- abstract --->
+Day 4では一次元拡散方程式を領域分割により並列化した。後はこの応用で相互作用距離が短いモデルはなんでも領域分割できるのだが、二次元、三次元だと、一次元よりちょっと面倒くさい。後、熱伝導方程式は、「最終的になにかに落ち着く」方程式なので、シミュレーションしててあまりおもしろいものではない。そこで、二次元で、差分法で簡単に解けて、かつ結果がそこそこ面白い題材として反応拡散方程式を取り上げる。
+<!--- end --->
+
+## 反応拡散方程式
+
+反応拡散方程式(reaction-diffusion system)とは、拡散方程式に力学系がくっついたような系で、様々なパターンを作る。例えば「reaction-diffusion system」でイメージ検索してみて欲しい。生物の模様なんかがこの方程式系で説明されたりする。
 
 世の中には様々な反応拡散方程式があるのだが、ここでは[Gray-Scottモデル](https://groups.csail.mit.edu/mac/projects/amorphous/GrayScott/)と呼ばれる、以下の方程式系を考えよう。
 
@@ -119,9 +125,99 @@ int main() {
 
 `save_as_dat`は、呼ばれるたびに配列を連番のファイル名で保存する関数である。
 
-全体のコードはこんな感じになる。
+全体のコードはこんな感じになる(`gs.cpp`)。
 
-[gs.cpp](gs.cpp)
+```cpp
+#include <cstdio>
+#include <iostream>
+#include <vector>
+#include <fstream>
+
+const int L = 128;
+const int TOTAL_STEP = 20000;
+const int INTERVAL = 200;
+const double F = 0.04;
+const double k = 0.06075;
+const double dt = 0.2;
+const double Du = 0.05;
+const double Dv = 0.1;
+
+typedef std::vector<double> vd;
+
+void init(vd &u, vd &v) {
+  int d = 3;
+  for (int i = L / 2 - d; i < L / 2 + d; i++) {
+    for (int j = L / 2 - d; j < L / 2 + d; j++) {
+      u[j + i * L] = 0.7;
+    }
+  }
+  d = 6;
+  for (int i = L / 2 - d; i < L / 2 + d; i++) {
+    for (int j = L / 2 - d; j < L / 2 + d; j++) {
+      v[j + i * L] = 0.9;
+    }
+  }
+}
+
+double calcU(double tu, double tv) {
+  return tu * tu * tv - (F + k) * tu;
+}
+
+double calcV(double tu, double tv) {
+  return -tu * tu * tv + F * (1.0 - tv);
+}
+
+double laplacian(int ix, int iy, vd &s) {
+  double ts = 0.0;
+  ts += s[ix - 1 + iy * L];
+  ts += s[ix + 1 + iy * L];
+  ts += s[ix + (iy - 1) * L];
+  ts += s[ix + (iy + 1) * L];
+  ts -= 4.0 * s[ix + iy * L];
+  return ts;
+}
+
+void calc(vd &u, vd &v, vd &u2, vd &v2) {
+  for (int iy = 1; iy < L - 1; iy++) {
+    for (int ix = 1; ix < L - 1; ix++) {
+      double du = 0;
+      double dv = 0;
+      const int i = ix + iy * L;
+      du = Du * laplacian(ix, iy, u);
+      dv = Dv * laplacian(ix, iy, v);
+      du += calcU(u[i], v[i]);
+      dv += calcV(u[i], v[i]);
+      u2[i] = u[i] + du * dt;
+      v2[i] = v[i] + dv * dt;
+    }
+  }
+}
+
+void save_as_dat(vd &u) {
+  static int index = 0;
+  char filename[256];
+  sprintf(filename, "conf%03d.dat", index);
+  std::cout << filename << std::endl;
+  std::ofstream ofs(filename, std::ios::binary);
+  ofs.write((char *)(u.data()), sizeof(double)*L * L);
+  index++;
+}
+
+int main() {
+  const int V = L * L;
+  vd u(V, 0.0), v(V, 0.0);
+  vd u2(V, 0.0), v2(V, 0.0);
+  init(u, v);
+  for (int i = 0; i < TOTAL_STEP; i++) {
+    if (i & 1) {
+      calc(u2, v2, u, v);
+    } else {
+      calc(u, v, u2, v2);
+    }
+    if (i % INTERVAL == 0) save_as_dat(u);
+  }
+}
+```
 
 コンパイル、実行してみよう。
 
@@ -192,10 +288,7 @@ conf099.dat
 
 するとこんな感じの画像が得られる。
 
-![fig/conf010.png](fig/conf010.png)
-![fig/conf030.png](fig/conf030.png)
-![fig/conf050.png](fig/conf050.png)
-![fig/conf090.png](fig/conf090.png)
+![反応拡散方程式シミュレーションの実行結果](fig/gs.png)
 
 ## 並列化ステップ1: 通信の準備など
 
@@ -238,7 +331,7 @@ Intel MPIやSGI MPTはちゃんと3x3を返してくるので、このあたり�
 例えば8x8の系を4プロセスで並列化する際、一つのプロセスが担当するのは4x4となるが、
 上下左右に1列余分に必要になるので、合わせて6x6のデータを保持することになる。
 
-![fig/margin.png](fig/margin.png)
+![通信の「のりしろ」](fig/margin.png)
 
 また、各プロセスは自分がどの場所を担当しているかも知っておきたいし、担当する領域のサイズも保持しておきたい。
 これらに加えてランクや総プロセス数といった並列化情報を、`MPIinfo`という構造体にまとめて突っ込んで置こう。
@@ -392,7 +485,7 @@ void dump_local(std::vector<int> &local_data, MPIinfo &mi) {
 
 の二種類である。一次元分割の時と同様に、まずは後者、データの保存のための通信を考えよう。
 
-![fig/gather.png](fig/gather.png)
+![データの集約](fig/gather.png)
 
 時間発展した結果を保存したいので、各プロセスが保持するデータを集約したい。
 各プロセスが保持するデータをローカルデータ、系全体のデータをグローバルデータと呼ぶことにする。
@@ -550,9 +643,9 @@ void gather(std::vector<int> &local_data, MPIinfo &mi) {
 MPIは書いた通りに動く。なので、通信アルゴリズムが決まっていれば、その手順どおりに書くだけである。
 実際面倒なのは通信そのものよりも、通信の前処理と後処理だったりする(そもそも今回も通信は一行だけだ)。
 
-以上をすべてまとめたコードは以下の通り。
+以上をすべてまとめたコードを`gather2d.cpp`としよう。やや大きいので、ウェブへのリンクを貼っておく。
 
-[gather2d.cpp](gather2d.cpp)
+[https://github.com/kaityo256/sevendayshpc/blob/master/day5/gather2d.cpp](https://github.com/kaityo256/sevendayshpc/blob/master/day5/gather2d.cpp)
 
 main関数だけ書いておくとこんな感じ。
 
@@ -585,11 +678,11 @@ int main(int argc, char **argv) {
 
 データの転送を図解するとこんな感じになる。まず、左右方向の通信。実際の例では2x2分割のため、自分から見て左にいるプロセスと右にいるプロセスが同一になってしまうが、図では別プロセスとして描いているから注意。
 
-![fig/sendrecv_x.png](fig/sendrecv_x.png)
+![x軸方向の通信](fig/sendrecv_x.png)
 
 左右の通信が終わったら、左右からもらったデータも込みで上下に転送する。以下は、「下から受け取り、上に送る」通信。
 
-![fig/sendrecv_y.png](fig/sendrecv_y.png)
+![y軸方向の通信](fig/sendrecv_y.png)
 
 最後の点線で囲ったデータが「斜め方向のプロセスが保持していたデータ」であり、間接的に受け取ったことになる。
 
@@ -650,7 +743,7 @@ void sendrecv_x(std::vector<int> &local_data, MPIinfo &mi) {
 
 このアルゴリズムを実装するとこんな感じになる。
 
-[sendrecv.cpp](sendrecv.cpp)
+[https://github.com/kaityo256/sevendayshpc/blob/master/day5/sendrecv.cpp](https://github.com/kaityo256/sevendayshpc/blob/master/day5/sendrecv.cpp)
 
 実行結果はこんな感じ。
 
@@ -923,19 +1016,30 @@ conf099.dat
 mpirun -np 4 --oversubscribe ./a.out  2.39s user 0.29s system 321% cpu 0.832 total
 ```
 
-321%とか出てるので、並列化できているようだ。実行時間も1.697s→0.832sと倍近く早くなっている。
-実行結果も可視化して確認してみよう。
+`time`コマンドで出てくる`%`は、どれだけCPUコアを使ったかを表している。一つのCPUコアを使い切ると100%になる。ここでは321%と表示されているため、4コアを使った並列計算ができていることがわかる。実行時間も1.697s→0.832sと倍近く早くなっている。
+シリアル版を`serial`、MPI版を`mpi`というディレクトリで実行し、それぞれにデータファイルがあるとして、`diff`で確認してみよう。時間発展前する前は当然同じ結果になる。
 
-![fig/conf010_mpi.png](fig/conf010_mpi.png)
-![fig/conf030_mpi.png](fig/conf030_mpi.png)
-![fig/conf050_mpi.png](fig/conf050_mpi.png)
-![fig/conf090_mpi.png](fig/conf090_mpi.png)
+```sh
+$ diff -s serial/conf000.dat mpi/conf000.dat
+Files serial/conf000.dat and mpi/conf000.dat are identical
+```
+
+しかし、誤差の関係で、次のステップから結果がずれていく。
+
+```sh
+$ diff -s serial/conf001.dat mpi/conf001.dat
+Binary files serial/conf001.dat and mpi/conf001.dat differ
+```
+
+これは、シリアル版とMPI版で加算の順序が変わることによる。しかし、本質的には同じ計算をしているので、可視化すると同じような図が出てくるはずである。見てみよう。
+
+![シリアル版とMPI版の時間発展の比較](fig/serial_and_mpi.png)
 
 うん、大丈夫そうですね。
 
-さて、いまは4コアあるローカルPCで4プロセス実行したから、理想的には4倍早くなって欲しいのに、2倍近くしか早くなっていない。つまり、並列化効率は50%程度である。
+さて、実行時間は1.697s→0.832sと2倍近くなったが、使ったCPUコアは4コアであった。つまり、理想的には4倍早くなって欲しいのに、2倍近くしか早くなっていない。並列化効率は50%程度である。
 
-ん？並列化効率が物足りない？ **そういう時はウィースケーリングに逃げてサイズで殴れ！**
+ん？並列化効率が物足りない？ **そういう時はウィースケーリングに逃げてサイズで殴る**。
 
 というわけでサイズをでかくする。一辺4倍にして再度実行してみよう。
 
