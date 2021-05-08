@@ -14,7 +14,13 @@ impl<'a> StdOutEnv<'a> {
         let rank = world.rank();
         let procs = world.size();
         let stdout = Vec::new();
-        Self { rank, procs, root_rank, world, stdout }
+        Self {
+            rank,
+            procs,
+            root_rank,
+            world,
+            stdout,
+        }
     }
 
     pub fn print(&self) {
@@ -29,7 +35,9 @@ impl<'a> StdOutEnv<'a> {
         if self.rank == self.root_rank {
             if self.rank == rank {
                 self.stdout.reserve(s_len);
-                for &e in s_bytes.iter() { self.stdout.push(e); }
+                for &e in s_bytes.iter() {
+                    self.stdout.push(e);
+                }
             } else {
                 let mut buf_len = 0;
                 let process = self.world.process_at_rank(rank);
@@ -37,7 +45,9 @@ impl<'a> StdOutEnv<'a> {
                 let mut buf = vec![0u8; buf_len];
                 self.stdout.reserve(buf_len);
                 p2p::send_receive_into(&true, &process, &mut buf[..], &process);
-                for &e in buf.iter() { self.stdout.push(e); }
+                for &e in buf.iter() {
+                    self.stdout.push(e);
+                }
             }
         } else {
             if self.rank == rank {

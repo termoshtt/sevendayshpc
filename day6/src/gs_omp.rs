@@ -53,25 +53,26 @@ fn laplacian(ix: usize, iy: usize, s: &VD) -> f64 {
 }
 
 fn calc(u: &mut VD, v: &mut VD, u2: &mut VD, v2: &mut VD) {
-    u.par_iter().zip(v.par_iter())
-                .zip(u2.par_iter_mut())
-                .zip(v2.par_iter_mut())
-                .enumerate()
-                .map(|(i, (((up, vp), u2p), v2p))| {
-                    let ix = i % L;
-                    let iy = i / L;
-                    if ix > 0 && ix < L-1 && iy > 0 && iy < L-1 {
-                        let mut du;
-                        let mut dv;
-                        du = DU * laplacian(ix, iy, u);
-                        dv = DV * laplacian(ix, iy, v);
-                        du += calc_u(*up, *vp);
-                        dv += calc_v(*up, *vp);
-                        *u2p = *up + du * DT;
-                        *v2p = *vp + dv * DT;
-                    } 
-                })
-                .collect::<()>();
+    u.par_iter()
+        .zip(v.par_iter())
+        .zip(u2.par_iter_mut())
+        .zip(v2.par_iter_mut())
+        .enumerate()
+        .map(|(i, (((up, vp), u2p), v2p))| {
+            let ix = i % L;
+            let iy = i / L;
+            if ix > 0 && ix < L - 1 && iy > 0 && iy < L - 1 {
+                let mut du;
+                let mut dv;
+                du = DU * laplacian(ix, iy, u);
+                dv = DV * laplacian(ix, iy, v);
+                du += calc_u(*up, *vp);
+                dv += calc_v(*up, *vp);
+                *u2p = *up + du * DT;
+                *v2p = *vp + dv * DT;
+            }
+        })
+        .collect::<()>();
 }
 
 fn save_as_dat(u: &VD, index: &mut usize) -> Result<(), Box<dyn std::error::Error>> {

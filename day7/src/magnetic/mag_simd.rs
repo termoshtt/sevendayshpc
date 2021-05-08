@@ -72,7 +72,7 @@ unsafe fn calc_rk2_simd(v: &mut [V], r: &mut [V], bx: f64, by: f64, bz: f64) {
     let vb_yzx = _mm256_set_pd(0.0, bx, bz, by);
     let vdt = _mm256_set_pd(0.0, DT, DT, DT);
     let vdt_h = _mm256_set_pd(0.0, DT * 0.5, DT * 0.5, DT * 0.5);
-    
+
     for i in 0..N {
         let mut vv = _mm256_load_pd(&v[i].x as *const f64);
         let mut vr = _mm256_load_pd(&r[i].x as *const f64);
@@ -132,11 +132,13 @@ fn main() {
     for i in 0..10000 {
         // calc_euler(&mut v, &mut r, bx, by, bz);
         // calc_rk2(&mut v, &mut r, bx, by, bz);
-        unsafe { calc_rk2_simd(&mut v, &mut r, bx, by, bz); }
+        unsafe {
+            calc_rk2_simd(&mut v, &mut r, bx, by, bz);
+        }
         t += DT;
         if i % 1000 == 0 {
             println!("{} {}", t, energy(&v));
-        } 
+        }
     }
     // dump(&r);
 }

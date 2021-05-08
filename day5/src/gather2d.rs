@@ -1,7 +1,7 @@
 use mpi::topology::*;
 use mpi::traits::*;
-use mpi_util::*;
 use mpi_util::stdout::StdOutEnv;
+use mpi_util::*;
 
 const L: usize = 8;
 
@@ -18,7 +18,8 @@ struct MPIinfo {
 }
 
 impl MPIinfo {
-    pub fn new(world: &SystemCommunicator) -> Self { // void setup_info(MPIinfo &mi);
+    pub fn new(world: &SystemCommunicator) -> Self {
+        // void setup_info(MPIinfo &mi);
         let rank = world.rank();
         let procs = world.size();
         let mut d2 = vec![0; 2];
@@ -29,7 +30,16 @@ impl MPIinfo {
         let local_grid_y = rank / gx;
         let local_size_x = L / gx as usize;
         let local_size_y = L / gy as usize;
-        Self { rank, procs, gx, gy, local_grid_x, local_grid_y, local_size_x, local_size_y, }
+        Self {
+            rank,
+            procs,
+            gx,
+            gy,
+            local_grid_x,
+            local_grid_y,
+            local_size_x,
+            local_size_y,
+        }
     }
 
     pub fn init(&self, local_data: &mut Vec<i32>) {
@@ -45,8 +55,8 @@ impl MPIinfo {
 
     pub fn dump_local_sub(&self, rank: i32, local_data: &mut Vec<i32>, out: &mut StdOutEnv) {
         out.write(&format!("rank = {}\n", rank), rank);
-        for iy in 0..self.local_size_y+2 {
-            for ix in 0..self.local_size_x+2 {
+        for iy in 0..self.local_size_y + 2 {
+            for ix in 0..self.local_size_x + 2 {
                 let index = ix + iy * (self.local_size_x + 2);
                 out.write(&format!(" {:03}", local_data[index]), rank);
             }

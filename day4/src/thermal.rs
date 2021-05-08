@@ -7,7 +7,7 @@ const DUMP: usize = 1_000;
 
 fn onestep(lattice: &mut Vec<f64>, orig: &mut Vec<f64>, h: f64) {
     *orig = lattice.clone();
-    for i in 1..L-1 {
+    for i in 1..L - 1 {
         lattice[i] += (orig[i - 1] - 2.0 * orig[i] + orig[i + 1]) * 0.5 * h;
     }
     // For Periodic Boundary
@@ -35,7 +35,9 @@ fn fixed_temperature(lattice: &mut Vec<f64>) -> Result<(), Box<dyn std::error::E
         onestep(lattice, &mut orig, h);
         lattice[L / 4] = q;
         lattice[3 * L / 4] = -q;
-        if i % DUMP == 0 { dump(lattice, &mut index)?; }
+        if i % DUMP == 0 {
+            dump(lattice, &mut index)?;
+        }
     }
     Ok(())
 }
@@ -53,7 +55,9 @@ fn uniform_heating(lattice: &mut Vec<f64>) -> Result<(), Box<dyn std::error::Err
         }
         lattice[0] = 0.0;
         lattice[L - 1] = 0.0;
-        if i % DUMP == 0 { dump(lattice, &mut index)?; }
+        if i % DUMP == 0 {
+            dump(lattice, &mut index)?;
+        }
     }
     Ok(())
 }

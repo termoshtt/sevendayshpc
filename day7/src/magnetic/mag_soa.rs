@@ -22,9 +22,15 @@ fn energy(vx: &[f64], vy: &[f64], vz: &[f64]) -> f64 {
 
 #[allow(dead_code)]
 fn calc_euler(
-    vx: &mut [f64], vy: &mut [f64], vz: &mut [f64],
-    rx: &mut [f64], ry: &mut [f64], rz: &mut [f64],
-    bx: f64, by: f64, bz: f64
+    vx: &mut [f64],
+    vy: &mut [f64],
+    vz: &mut [f64],
+    rx: &mut [f64],
+    ry: &mut [f64],
+    rz: &mut [f64],
+    bx: f64,
+    by: f64,
+    bz: f64,
 ) {
     for i in 0..N {
         let px = vy[i] * bz - vz[i] * by;
@@ -41,9 +47,15 @@ fn calc_euler(
 
 #[allow(dead_code)]
 fn calc_rk2(
-    vx: &mut [f64], vy: &mut [f64], vz: &mut [f64],
-    rx: &mut [f64], ry: &mut [f64], rz: &mut [f64],
-    bx: f64, by: f64, bz: f64
+    vx: &mut [f64],
+    vy: &mut [f64],
+    vz: &mut [f64],
+    rx: &mut [f64],
+    ry: &mut [f64],
+    rz: &mut [f64],
+    bx: f64,
+    by: f64,
+    bz: f64,
 ) {
     for i in 0..N {
         let px = vy[i] * bz - vz[i] * by;
@@ -65,8 +77,12 @@ fn calc_rk2(
 }
 
 fn init(
-    vx: &mut [f64], vy: &mut [f64], vz: &mut [f64],
-    rx: &mut [f64], ry: &mut [f64], rz: &mut [f64],
+    vx: &mut [f64],
+    vy: &mut [f64],
+    vz: &mut [f64],
+    rx: &mut [f64],
+    ry: &mut [f64],
+    rz: &mut [f64],
 ) -> (f64, f64, f64) {
     let ud = Uniform::new(0.0, 1.0);
     let mut rng = thread_rng();
@@ -89,7 +105,7 @@ fn init(
     (bx, by, bz)
 }
 
-fn dump(rx: &[f64], ry: &[f64], rz: &[f64],) {
+fn dump(rx: &[f64], ry: &[f64], rz: &[f64]) {
     for i in 0..N {
         print!("{} ", rx[i]);
         print!("{} ", ry[i]);
@@ -98,12 +114,30 @@ fn dump(rx: &[f64], ry: &[f64], rz: &[f64],) {
 }
 
 fn main() {
-    let mut vx = A { data: Vec::with_capacity(N) }.data;
-    let mut vy = A { data: Vec::with_capacity(N) }.data;
-    let mut vz = A { data: Vec::with_capacity(N) }.data;
-    let mut rx = A { data: Vec::with_capacity(N) }.data;
-    let mut ry = A { data: Vec::with_capacity(N) }.data;
-    let mut rz = A { data: Vec::with_capacity(N) }.data;
+    let mut vx = A {
+        data: Vec::with_capacity(N),
+    }
+    .data;
+    let mut vy = A {
+        data: Vec::with_capacity(N),
+    }
+    .data;
+    let mut vz = A {
+        data: Vec::with_capacity(N),
+    }
+    .data;
+    let mut rx = A {
+        data: Vec::with_capacity(N),
+    }
+    .data;
+    let mut ry = A {
+        data: Vec::with_capacity(N),
+    }
+    .data;
+    let mut rz = A {
+        data: Vec::with_capacity(N),
+    }
+    .data;
 
     unsafe {
         vx.set_len(N);
@@ -113,16 +147,18 @@ fn main() {
         ry.set_len(N);
         rz.set_len(N);
     }
-    
+
     let (bx, by, bz) = init(&mut vx, &mut vy, &mut vz, &mut rx, &mut ry, &mut rz);
     let mut t = 0.0;
     for i in 0..10000 {
         // calc_euler(&mut v, &mut r, bx, by, bz);
-        calc_rk2(&mut vx, &mut vy, &mut vz, &mut rx, &mut ry, &mut rz, bx, by, bz);
+        calc_rk2(
+            &mut vx, &mut vy, &mut vz, &mut rx, &mut ry, &mut rz, bx, by, bz,
+        );
         t += DT;
         if i % 1000 == 0 {
             println!("{} {}", t, energy(&vx, &vy, &vz));
-        } 
+        }
     }
     // dump(&rx, &ry, &rz);
 }

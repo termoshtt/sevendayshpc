@@ -1,8 +1,8 @@
 use mpi::point_to_point as p2p;
 use mpi::topology::*;
 use mpi::traits::*;
-use mpi_util::*;
 use mpi_util::stdout::StdOutEnv;
+use mpi_util::*;
 
 const L: usize = 8;
 
@@ -18,7 +18,8 @@ struct MPIinfo {
 }
 
 impl MPIinfo {
-    pub fn new(world: &SystemCommunicator) -> Self { // void setup_info(MPIinfo &mi);
+    pub fn new(world: &SystemCommunicator) -> Self {
+        // void setup_info(MPIinfo &mi);
         let rank = world.rank();
         let procs = world.size();
         let mut d2 = vec![0; 2];
@@ -29,7 +30,16 @@ impl MPIinfo {
         let local_grid_y = rank / gx;
         let local_size_x = L / gx as usize;
         let local_size_y = L / gy as usize;
-        Self { rank, procs, gx, gy, local_grid_x, local_grid_y, local_size_x, local_size_y, }
+        Self {
+            rank,
+            procs,
+            gx,
+            gy,
+            local_grid_x,
+            local_grid_y,
+            local_size_x,
+            local_size_y,
+        }
     }
 
     // 自分から見て(dx,dy)だけずれたプロセスのrankを返す
@@ -52,8 +62,8 @@ impl MPIinfo {
 
     pub fn dump_local_sub(&self, rank: i32, local_data: &mut Vec<i32>, out: &mut StdOutEnv) {
         out.write(&format!("rank = {}\n", rank), rank);
-        for iy in 0..self.local_size_y+2 {
-            for ix in 0..self.local_size_x+2 {
+        for iy in 0..self.local_size_y + 2 {
+            for ix in 0..self.local_size_x + 2 {
                 let index = ix + iy * (self.local_size_x + 2);
                 out.write(&format!(" {:03}", local_data[index]), rank);
             }
@@ -82,7 +92,12 @@ impl MPIinfo {
             let index = lx + (i + 1) * (lx + 2);
             sendbuf[i] = local_data[index];
         }
-        p2p::send_receive_into(&sendbuf[..], &right_process, &mut recvbuf[..], &left_process);
+        p2p::send_receive_into(
+            &sendbuf[..],
+            &right_process,
+            &mut recvbuf[..],
+            &left_process,
+        );
         for i in 0..ly {
             let index = (i + 1) * (lx + 2);
             local_data[index] = recvbuf[i];
@@ -92,7 +107,12 @@ impl MPIinfo {
             let index = 1 + (i + 1) * (lx + 2);
             sendbuf[i] = local_data[index];
         }
-        p2p::send_receive_into(&sendbuf[..], &left_process, &mut recvbuf[..], &right_process);
+        p2p::send_receive_into(
+            &sendbuf[..],
+            &left_process,
+            &mut recvbuf[..],
+            &right_process,
+        );
         for i in 0..ly {
             let index = lx + 1 + (i + 1) * (lx + 2);
             local_data[index] = recvbuf[i];
@@ -109,22 +129,22 @@ impl MPIinfo {
         let up_process = world.process_at_rank(up);
         let down_process = world.process_at_rank(down);
         // 上に投げて下から受け取る
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + 1 * (lx + 2);
             sendbuf[i] = local_data[index];
         }
         p2p::send_receive_into(&sendbuf[..], &up_process, &mut recvbuf[..], &down_process);
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + (ly + 1) * (lx + 2);
             local_data[index] = recvbuf[i];
         }
         // 下に投げて上から受け取る
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + ly * (lx + 2);
             sendbuf[i] = local_data[index];
         }
         p2p::send_receive_into(&sendbuf[..], &down_process, &mut recvbuf[..], &up_process);
-        for i in 0..lx+2 {
+        for i in 0..lx + 2 {
             let index = i + 0 * (lx + 2);
             local_data[index] = recvbuf[i];
         }
@@ -141,15 +161,21 @@ fn main() {
     // ローカルデータの初期化
     mi.init(&mut local_data);
     // ローカルデータの表示
-    if mi.rank == 0 { out.write("# 通信前\n", mi.rank); }
+    if mi.rank == 0 {
+        out.write("# 通信前\n", mi.rank);
+    }
     mi.dump_local(&mut local_data, &mut out);
     // x方向に通信
     mi.sendrecv_x(&mut local_data, &world);
-    if mi.rank == 0 { out.write("# 左右の通信後\n", mi.rank); }
+    if mi.rank == 0 {
+        out.write("# 左右の通信後\n", mi.rank);
+    }
     mi.dump_local(&mut local_data, &mut out);
     // y方向に通信
     mi.sendrecv_y(&mut local_data, &world);
-    if mi.rank == 0 { out.write("# 上下の通信終了後 (これで斜め方向も完了)\n", mi.rank); }
+    if mi.rank == 0 {
+        out.write("# 上下の通信終了後 (これで斜め方向も完了)\n", mi.rank);
+    }
     mi.dump_local(&mut local_data, &mut out);
     out.print();
 }

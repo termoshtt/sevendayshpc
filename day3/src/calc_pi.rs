@@ -1,4 +1,4 @@
-use rand::distributions::{Uniform, Distribution};
+use rand::distributions::{Distribution, Uniform};
 use rand_core::SeedableRng;
 
 const TRIAL: usize = 100_000;
@@ -10,7 +10,9 @@ fn calc_pi(seed: u8) -> f64 {
     for _ in 0..TRIAL {
         let x = ud.sample(&mut rng);
         let y = ud.sample(&mut rng);
-        if x * x + y * y < 1.0 { n += 1; }
+        if x * x + y * y < 1.0 {
+            n += 1;
+        }
     }
     4.0 * n as f64 / TRIAL as f64
 }
