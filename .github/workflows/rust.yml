@@ -23,5 +23,6 @@ jobs:
           --manifest-path=day1/Cargo.toml
     - name: Run
       run: |
-        mpirun --allow-run-as-root -np 4 ./day1/target/release/hello
-        mpirun --allow-run-as-root -np 4 ./day1/target/release/rank
+        cat /proc/cpuinfo
+        mpirun --allow-run-as-root -np 2 ./day1/target/release/hello
+        mpirun --allow-run-as-root -np 2 ./day1/target/release/rank
