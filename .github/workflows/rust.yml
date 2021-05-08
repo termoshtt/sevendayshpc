@@ -28,3 +28,26 @@ jobs:
       run: |
         mpirun --allow-run-as-root -np 2 ./day1/target/release/hello
         mpirun --allow-run-as-root -np 2 ./day1/target/release/rank
+
+  day3:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install OpenMPI
+      run: |
+        sudo apt update
+        sudo apt install -y libopenmpi-dev
+    - name: Check CPU
+      run: |
+        cat /proc/cpuinfo
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --release
+          --manifest-path=day3/Cargo.toml
+    - name: Run
+      run: |
+        mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_pi
+        mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_mpi
+        mpirun --allow-run-as-root -np 2 ./day3/target/release/calc_reduce
